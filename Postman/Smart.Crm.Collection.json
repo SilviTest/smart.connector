@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "4d4b4cbc-6307-48fe-a12e-f608e98b3bbf",
+		"name": "Smart CRM Connector",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"username\": \"{{username}}\",\n\t\"password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "https://api.smart.altares.group/api/oauth/token",
+					"protocol": "https",
+					"host": [
+                        "api",
+                        "smart",
+						"altares",
+						"group"
+					],
+					"path": [
+						"api",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Selection Results",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.smart.altares.group/api/v201/dnb-nld/list",
+					"protocol": "https",
+					"host": [
+                        "api",
+                        "smart",
+						"altares",
+						"group"
+					],
+					"path": [
+						"api",
+						"v201",
+						"dnb-nld",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Selection in Download format",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.smart.altares.group/api/v201/dnb-nld/list",
+					"protocol": "https",
+					"host": [
+                        "api",
+                        "smart",
+						"altares",
+						"group"
+					],
+					"path": [
+						"api",
+						"v201",
+						"dnb-nld",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update List Add new Numbers",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Values\": [\r\n  \t{\r\n      \"Item1\": \"415562391\"\r\n    }\r\n  ],\r\n  \"Email\": true,\r\n  \"Type\": \"DUNS\",\r\n  \"Name\": \"My Postman List\",\r\n  \"Append\": true,\r\n  \"Public\": false,\r\n  \"IncludeFamilyTree\": true,\r\n  \"IsCustomList\": false,\r\n  \"ListCategoryId\": 0\r\n}"
+				},
+				"url": {
+					"raw": "https://api.smart.altares.group/api/v201/dnb-nld/list/12337",
+					"protocol": "https",
+					"host": [
+                        "api",
+                        "smart",
+						"altares",
+						"group"
+					],
+					"path": [
+						"api",
+						"v201",
+						"dnb-nld",
+						"list",
+						"12337"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "--ADD--",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b59484ec-71b5-4baf-92c5-54667cdb86fa",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6696490e-7db5-4360-89af-b76039e92044",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
