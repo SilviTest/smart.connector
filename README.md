@@ -1,4 +1,4 @@
-![SMART by altares](https://smart.altares.nl/assets/smart-altares.png "Smart by altares")
+![SMART by altares](https://smart.altares.nl/assets/smart-altares-black.png "Smart by altares")
 # Client connector
 This is the development guide for connecting client applications to SMART. Here you can find usecases and examples on how to connect to the SMART services.
 
