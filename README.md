@@ -11,8 +11,23 @@ With SMART we deliver a range of webservices using REST endpoints, which can be 
 To be able to interact with our services you need to have a valid account and login. Please contact our customer services if help is needed to set up proper accounts.
 
 ## Authentication
-If you are in possession of a valid login you can access our API endpoint by authenticating using [OAuth 2.0](https://oauth.net/2/) headers and protocols. In short, this means you have to retrieve a valid token by authenticating with our application, and then you can interact with the API's supplying the retrieved token in the 'Authorization' HTTP header.
+If you are in possession of a valid login you can access our API endpoint by authenticating using [OAuth 2.0](https://oauth.net/2/) headers and protocols. In short, this means you have to retrieve a valid token by authenticating with our application, and then you can interact with the API's supplying the retrieved token in the 'Authorization' HTTP header. First however you need to register your application as an eligble client for SMART and receive a client id and secret. With this client id and secret we make sure only your application will have access to your environment in SMART. Contact customer service to request your client id and secret.
+
 Our login authority follows the [OpenID](https://openid.net/what-is-openid/) standard. All needed information for authenticating can be loaded from our configuration page at: https://security.smart.altares.group/.well-known/openid-configuration.
+
+### Login
+```
+POST https://security.smart.altares.group/connect/token
+CONTENT-TYPE application/x-www-form-urlencoded
+
+    client_id={YOUR_CLIENT ID}&
+    client_secret={YOUR_CLIENT_SECRET}&
+    grant_type=pasword&
+    scope=smart.api&
+    username={USERNAME}&
+    password={PASSWORD}
+```
+Calling this endpoint will return the needed tokens to be used when calling our webservices.
 
 ## Usecase: Exporting your customers to SMART
 The first usecase is exporting the customers from your CRM into a list in SMART. We don't need the whole customers database, but only key identifiers to  know which companies are your customer. We support the following types of identifiers:
@@ -29,7 +44,7 @@ By exporting these identifiers into a list in SMART, you will be able to create 
 You can add items to a list you have created by using the PUT call to the list endpoint. For the netherlands it would be:
 
 
-> https://smart.altares.nl/api/v201/dnb-nld/list/{ListId}
+> https://api.smart.altares.group/api/v201/dnb-nld/list/{ListId}
 
 
 Where in the body of the call you specify the values to be added like this: 
@@ -65,7 +80,7 @@ There are two possible ways to get information from the selection. The first is 
 This done by the following GET call in case of the Netherlands:
 
 
-> https://smart.altares.nl/api/v201/dnb-nld/selection/results/{SelectionId}?currentPage=1&pageSize=1
+> https://api.smart.altares.group/api/v201/dnb-nld/selection/results/{SelectionId}?currentPage=1&pageSize=1
 
 
 The response will be as the following JSON output: 
@@ -99,7 +114,7 @@ The response will be as the following JSON output:
 
 Another way is first creating a downloadable file. You do this by first opening the Selection, and then choose the export option. After the information is processed the Selection will be available as an Excel file in the head menu Downloads, submenu Selections. As an alternative to a file download, you can obtain the information from such a file directly as JSON output via the following call.
 
-> https://smart.altares.nl/api/v201/dnb-nld/downloads/jsoncontent/DownloadId?currentPage=1&pageSize=1
+> https://api.smart.altares.group/api/v201/dnb-nld/downloads/jsoncontent/DownloadId?currentPage=1&pageSize=1
 
 
 The response will be as the following JSON output: 
