@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4d4b4cbc-6307-48fe-a12e-f608e98b3bbf",
+		"_postman_id": "cfa926ea-e3f2-45d6-a9f5-8900f230fe90",
 		"name": "Smart CRM Connector",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -21,21 +21,51 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"username\": \"{{username}}\",\n\t\"password\": \"{{password}}\"\n}"
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{app_client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{app_client_secret}}",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "smart.api offline_access",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
 				},
 				"url": {
-					"raw": "https://api.smart.altares.group/api/oauth/token",
+					"raw": "https://security.smart.altares.group/connect/token",
 					"protocol": "https",
 					"host": [
-                        "api",
-                        "smart",
+						"security",
+						"smart",
 						"altares",
 						"group"
 					],
 					"path": [
-						"api",
-						"oauth",
+						"connect",
 						"token"
 					]
 				}
@@ -43,24 +73,25 @@
 			"response": []
 		},
 		{
-			"name": "Get Selection Results",
+			"name": "Get exported selections",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.smart.altares.group/api/v201/dnb-nld/list",
+					"raw": "https://api.smart.altares.group/api/v200/{{host_id}}/{{country}}/selectiondownloads",
 					"protocol": "https",
 					"host": [
-                        "api",
-                        "smart",
+						"api",
+						"smart",
 						"altares",
 						"group"
 					],
 					"path": [
 						"api",
-						"v201",
-						"dnb-nld",
-						"list"
+						"v200",
+						"{{host_id}}",
+						"{{country}}",
+						"selectiondownloads"
 					]
 				}
 			},
@@ -72,19 +103,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.smart.altares.group/api/v201/dnb-nld/list",
+					"raw": "https://api.smart.altares.group/api/v201/{{environment}}/downloads/jsoncontent/{{download_id}}",
 					"protocol": "https",
 					"host": [
-                        "api",
-                        "smart",
+						"api",
+						"smart",
 						"altares",
 						"group"
 					],
 					"path": [
 						"api",
 						"v201",
-						"dnb-nld",
-						"list"
+						"{{environment}}",
+						"downloads",
+						"jsoncontent",
+						"{{download_id}}"
 					]
 				}
 			},
@@ -107,20 +140,20 @@
 					"raw": "{\r\n  \"Values\": [\r\n  \t{\r\n      \"Item1\": \"415562391\"\r\n    }\r\n  ],\r\n  \"Email\": true,\r\n  \"Type\": \"DUNS\",\r\n  \"Name\": \"My Postman List\",\r\n  \"Append\": true,\r\n  \"Public\": false,\r\n  \"IncludeFamilyTree\": true,\r\n  \"IsCustomList\": false,\r\n  \"ListCategoryId\": 0\r\n}"
 				},
 				"url": {
-					"raw": "https://api.smart.altares.group/api/v201/dnb-nld/list/12337",
+					"raw": "https://api.smart.altares.group/api/v201/{{environment}}/list/{{list_id}}",
 					"protocol": "https",
 					"host": [
-                        "api",
-                        "smart",
+						"api",
+						"smart",
 						"altares",
 						"group"
 					],
 					"path": [
 						"api",
 						"v201",
-						"dnb-nld",
+						"{{environment}}",
 						"list",
-						"12337"
+						"{{list_id}}"
 					]
 				}
 			},
@@ -128,20 +161,13 @@
 		}
 	],
 	"auth": {
-		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "--ADD--",
-				"type": "string"
-			}
-		]
+		"type": "bearer"
 	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "b59484ec-71b5-4baf-92c5-54667cdb86fa",
+				"id": "1c839136-c160-42a4-91b8-520dfafd36c2",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -151,12 +177,54 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "6696490e-7db5-4360-89af-b76039e92044",
+				"id": "562ee966-cf99-4917-86d4-5960c4ef27cc",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "77e2337b-be2e-4714-848f-d79e4b6dd3fc",
+			"key": "list_id",
+			"value": ""
+		},
+		{
+			"id": "5349d192-decc-429a-ab74-ae60795f2dac",
+			"key": "environment",
+			"value": "DNB-NLD"
+		},
+		{
+			"id": "4c42e454-0d9b-42a0-94e4-44092a7a55bd",
+			"key": "country",
+			"value": "NLD"
+		},
+		{
+			"id": "1fb9b99a-9922-4271-ae52-5a2d590be4e0",
+			"key": "host_id",
+			"value": "1"
+		},
+		{
+			"id": "c33a2713-e5c4-4115-b792-b4fef1d8a688",
+			"key": "app_client_id",
+			"value": ""
+		},
+		{
+			"id": "2e276799-963f-4e7f-9811-ff4d7cc3cb4e",
+			"key": "app_client_secret",
+			"value": ""
+		},
+		{
+			"id": "0a38c88a-81c5-45e6-ab26-bc796e988dd0",
+			"key": "username",
+			"value": ""
+		},
+		{
+			"id": "d47ae564-0602-4d64-b693-8ecb94a2af53",
+			"key": "password",
+			"value": ""
 		}
 	],
 	"protocolProfileBehavior": {}
